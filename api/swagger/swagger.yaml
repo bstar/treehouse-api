@@ -1,0 +1,156 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Treehouse API
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /players/:
+    get:
+      description: "This endpoint returns all players available"
+      operationId: "GetAllPlayers"
+      parameters: []
+      responses:
+        200:
+          description: "An array of players"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Player"
+      x-swagger-router-controller: "GetAllPlayers"
+
+    post:
+      description: "Add a new Player"
+      operationId: "AddPlayer"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "player"
+        description: "the Player to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Player"
+      responses:
+        200:
+          description: "Successful Player add"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddPlayer"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+  /player/{id}:
+    get:
+      description: "Retrieve a single player by id"
+      operationId: "FindPlayerById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the player to get"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Player response"
+          schema:
+            $ref: "#/definitions/Player"
+      x-swagger-router-controller: "FindPlayerById"
+    delete:
+      description: "Delete a player by Id"
+      operationId: "DeletePlayerById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the plyer to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "player deleted"
+      x-swagger-router-controller: "DeletePlayerById"
+
+    put:
+      description: "Update a single player by id"
+      operationId: "UpdatePlayerById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the player being updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "updated_player"
+        in: "body"
+        description: "the updated player"
+        required: true
+        schema:
+          $ref: "#/definitions/Player"
+      responses:
+        200:
+          description: "Player updated"
+          schema:
+            $ref: "#/definitions/Player"
+        400:
+          description: "An error has occurred!"
+      x-swagger-router-controller: "UpdatePlayerById"
+
+# complex objects have schema definitions
+definitions:
+  Player:
+    type: "object"
+    properties:
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      name:
+        type: "string"
+        description: "Player name"
+      speed:
+        type: "integer"
+        description: "Player speed stat"
+      strength:
+        type: "integer"
+        description: "Player strength stat"
+      shot:
+        type: "integer"
+        description: "Player shooting stat"
+      nation:
+        type: "string"
+        description: "Player home nation"
+      position:
+        type: "string"
+        description: "Player position"
+      age:
+        type: "integer"
+        description: "Player age"
+
+  AddResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "Id of the player added"
