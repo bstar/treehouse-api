@@ -18,21 +18,21 @@ var processFilters = function (filter) {
 };
 
 
-function GetAllPlayers (req, res) {
+function GetAllBoids (req, res) {
   const params = Object.assign({}, req.query),
         limit = params && params.limit ? parseInt(params.limit, 10) : 50;
 
   var filter = params.filter ? processFilters(params.filter) : {};
 
-  models.player.findAll({
+  models.boid.findAll({
       where: filter,
       limit: limit
     })
-    .then((players) => {
-      res.json(players);
+    .then((boids) => {
+      res.json(boids);
     });
 }
 
 module.exports = {
-  GetAllPlayers : GetAllPlayers
+  GetAllBoids : GetAllBoids
 };

@@ -43,13 +43,13 @@ $ swagger project edit
 ### Routes
 *server port defaults to 10010*
 
-Players **(get/post)**
+Boids **(get/post)**
 ```sh
-/players
+/boids
 ```
 Players **(get/edit/delete)**
 ```sh
-/player/:id
+/boid/:id
 ```
 Swagger-ui
 ```sh

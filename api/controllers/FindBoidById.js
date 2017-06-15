@@ -1,17 +1,17 @@
 'use strict';
 const models = require('../models')
 
-function FindPlayerById(req, res) {
+function FindBoidById(req, res) {
   var params = req.swagger.params;
 
-  models.player.find({
+  models.boid.find({
       where: { id: params.id.value }
     })
-    .then((player) => {
-      res.json(player);
+    .then((boid) => {
+      res.json(boid);
     });
 }
 
 module.exports = {
-  FindPlayerById : FindPlayerById
+  FindBoidById : FindBoidById
 }

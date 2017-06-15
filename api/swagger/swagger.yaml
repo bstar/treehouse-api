@@ -18,64 +18,64 @@ consumes:
 produces:
   - application/json
 paths:
-  /players/:
+  /boids/:
     get:
-      description: "This endpoint returns all players available"
-      operationId: "GetAllPlayers"
+      description: "This endpoint returns all boids available"
+      operationId: "GetAllBoids"
       parameters: []
       responses:
         200:
-          description: "An array of players"
+          description: "An array of boids"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Player"
-      x-swagger-router-controller: "GetAllPlayers"
+              $ref: "#/definitions/Boid"
+      x-swagger-router-controller: "GetAllBoids"
 
     post:
-      description: "Add a new Player"
-      operationId: "AddPlayer"
+      description: "Add a new Boid"
+      operationId: "AddBoid"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "player"
-        description: "the Player to be added"
+        name: "boid"
+        description: "the Boid to be added"
         required: true
         schema:
-          $ref: "#/definitions/Player"
+          $ref: "#/definitions/Boid"
       responses:
         200:
-          description: "Successful Player add"
+          description: "Successful Boid add"
           schema:
             $ref: "#/definitions/AddResponse"
-      x-swagger-router-controller: "AddPlayer"
+      x-swagger-router-controller: "AddBoid"
 
   /swagger:
     x-swagger-pipe: swagger_raw
 
-  /player/{id}:
+  /boid/{id}:
     get:
-      description: "Retrieve a single player by id"
-      operationId: "FindPlayerById"
+      description: "Retrieve a single boid by id"
+      operationId: "FindBoidById"
       produces:
       - "application/json"
       parameters:
       - name: "id"
         in: "path"
-        description: "ID of the player to get"
+        description: "ID of the boid to get"
         required: true
         type: "integer"
         format: "int64"
       responses:
         200:
-          description: "Player response"
+          description: "Boid response"
           schema:
-            $ref: "#/definitions/Player"
-      x-swagger-router-controller: "FindPlayerById"
+            $ref: "#/definitions/Boid"
+      x-swagger-router-controller: "FindBoidById"
     delete:
-      description: "Delete a player by Id"
-      operationId: "DeletePlayerById"
+      description: "Delete a boid by Id"
+      operationId: "DeleteBoidById"
       parameters:
       - name: "id"
         in: "path"
@@ -85,39 +85,39 @@ paths:
         format: "int64"
       responses:
         204:
-          description: "player deleted"
-      x-swagger-router-controller: "DeletePlayerById"
+          description: "boid deleted"
+      x-swagger-router-controller: "DeleteBoidById"
 
     put:
-      description: "Update a single player by id"
-      operationId: "UpdatePlayerById"
+      description: "Update a single boid by id"
+      operationId: "UpdateBoidById"
       produces:
       - "application/json"
       parameters:
       - name: "id"
         in: "path"
-        description: "Id of the player being updated"
+        description: "Id of the boid being updated"
         required: true
         type: "integer"
         format: "int64"
-      - name: "updated_player"
+      - name: "updated_boid"
         in: "body"
-        description: "the updated player"
+        description: "the updated boid"
         required: true
         schema:
-          $ref: "#/definitions/Player"
+          $ref: "#/definitions/Boid"
       responses:
         200:
-          description: "Player updated"
+          description: "Boid updated"
           schema:
-            $ref: "#/definitions/Player"
+            $ref: "#/definitions/Boid"
         400:
           description: "An error has occurred!"
-      x-swagger-router-controller: "UpdatePlayerById"
+      x-swagger-router-controller: "UpdateBoidById"
 
 # complex objects have schema definitions
 definitions:
-  Player:
+  Boid:
     type: "object"
     properties:
       createdAt:
@@ -128,29 +128,29 @@ definitions:
         format: "date-time"
       name:
         type: "string"
-        description: "Player name"
+        description: "Boid name"
       speed:
         type: "integer"
-        description: "Player speed stat"
+        description: "Boid speed stat"
       strength:
         type: "integer"
-        description: "Player strength stat"
+        description: "Boid strength stat"
       shot:
         type: "integer"
-        description: "Player shooting stat"
+        description: "Boid shooting stat"
       nation:
         type: "string"
-        description: "Player home nation"
+        description: "Boid home nation"
       position:
         type: "string"
-        description: "Player position"
+        description: "Boid position"
       age:
         type: "integer"
-        description: "Player age"
+        description: "Boid age"
 
   AddResponse:
     type: "object"
     properties:
       id:
         type: "integer"
-        description: "Id of the player added"
+        description: "Id of the boid added"

@@ -2,13 +2,13 @@
 const models = require('../models')
 
 module.exports = {
-  DeletePlayerById : DeletePlayerById
+  DeleteBoidById : DeleteBoidById
 }
 
-function DeletePlayerById(req, res) {
+function DeleteBoidById(req, res) {
   var params = req.swagger.params;
 
-  models.player.destroy({
+  models.boid.destroy({
       where: { id: params.id.value }
     })
     .then((status) => {

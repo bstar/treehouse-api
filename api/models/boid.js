@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var player = sequelize.define('player', {
+  var boid = sequelize.define('boid', {
     name: DataTypes.STRING,
     nation: DataTypes.STRING,
     position: DataTypes.STRING,
@@ -11,5 +11,5 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
     })
-  return player;
+  return boid;
 };

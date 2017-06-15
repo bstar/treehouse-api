@@ -32,6 +32,7 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
     app.use(express.static('./public'))
     app.listen(port, function() {
       // debug('Express server listening on port ' + app.address().port);
+      console.log('Express server listening on port ' + port);
     });
     app.on('error', onError);
     app.on('listening', onListening);
