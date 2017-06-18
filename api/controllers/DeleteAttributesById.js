@@ -1,10 +1,10 @@
 'use strict';
 const models = require('../models')
 
-function DeleteBoidById(req, res) {
+function DeleteAttributesById(req, res) {
   var params = req.swagger.params;
 
-  models.boid.destroy({
+  models.attributes.destroy({
       where: { id: params.id.value }
     })
     .then((status) => {
@@ -13,5 +13,5 @@ function DeleteBoidById(req, res) {
 }
 
 module.exports = {
-  DeleteBoidById : DeleteBoidById
+  DeleteAttributesById : DeleteAttributesById
 }

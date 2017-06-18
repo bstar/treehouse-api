@@ -18,6 +18,8 @@ consumes:
 produces:
   - application/json
 paths:
+
+  # BOID -------------------------
   /boids/:
     get:
       description: "This endpoint returns all boids available"
@@ -115,6 +117,102 @@ paths:
           description: "An error has occurred!"
       x-swagger-router-controller: "UpdateBoidById"
 
+  # ATTRIBUTES -------------------------
+  /attributes/:
+    get:
+      description: "This endpoint returns all attributes available"
+      operationId: "GetAllAttributes"
+      parameters: []
+      responses:
+        200:
+          description: "An array of attributes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Attributes"
+      x-swagger-router-controller: "GetAllAttributes"
+
+    post:
+      description: "Add a new Attributes set"
+      operationId: "AddAttributes"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "attributes"
+        description: "the Boid's Attributes to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Attributes"
+      responses:
+        200:
+          description: "Successful Attributes added"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddAttributes"
+
+  /attributes/{id}:
+    get:
+      description: "Retrieve a boid's attributes by id"
+      operationId: "FindAttributesById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the attributes to get"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Attributes response"
+          schema:
+            $ref: "#/definitions/Attributes"
+      x-swagger-router-controller: "FindAttributesById"
+
+    delete:
+      description: "Delete an attributes set by Id"
+      operationId: "DeleteAttributesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the attributes to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "attributes deleted"
+      x-swagger-router-controller: "DeleteAttributesById"
+
+    put:
+      description: "Update a single attributes set by id"
+      operationId: "UpdateAttributesById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the Attributes being updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "updated_attributes"
+        in: "body"
+        description: "the updated attributes"
+        required: true
+        schema:
+          $ref: "#/definitions/Attributes"
+      responses:
+        200:
+          description: "Attributes updated"
+          schema:
+            $ref: "#/definitions/Attributes"
+        400:
+          description: "An error has occurred!"
+      x-swagger-router-controller: "UpdateAttributesById"
+
 # complex objects have schema definitions
 definitions:
   Boid:
@@ -129,28 +227,41 @@ definitions:
       name:
         type: "string"
         description: "Boid name"
-      speed:
-        type: "integer"
-        description: "Boid speed stat"
-      strength:
-        type: "integer"
-        description: "Boid strength stat"
-      shot:
-        type: "integer"
-        description: "Boid shooting stat"
       nation:
         type: "string"
         description: "Boid home nation"
-      position:
+      dob:
         type: "string"
-        description: "Boid position"
-      age:
+        description: "Boid birth date"
+
+  Attributes:
+    type: "object"
+    properties:
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      boid_id:
         type: "integer"
-        description: "Boid age"
+        description: "Reference to Boid"
+      acceleration:
+        type: "integer"
+        description: "Boid's acceleration ability"
+      speed:
+        type: "integer"
+        description: "Boid's speed ability"
+      strength:
+        type: "integer"
+        description: "Boid's strength ability"
+      agility:
+        type: "integer"
+        description: "Boid's agility ability"
 
   AddResponse:
     type: "object"
     properties:
       id:
         type: "integer"
-        description: "Id of the boid added"
+        description: "New record added"

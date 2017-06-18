@@ -47,7 +47,7 @@ Boids **(get/post)**
 ```sh
 /boids
 ```
-Players **(get/edit/delete)**
+Boids **(get/edit/delete)**
 ```sh
 /boid/:id
 ```
